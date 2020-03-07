@@ -6,6 +6,7 @@ require("colors");
 const connectDB = require("./config/db");
 const games = require("./routes/games");
 const users = require("./routes/users");
+const orders = require("./routes/orders");
 const { PORT_FALLBACK } = require("./shared/constants");
 
 dotenv.config({ path: "./config/config.env" });
@@ -20,6 +21,7 @@ app.use("/uploads", express.static("uploads"));
 
 app.use("/api/v1/games", games);
 app.use("/api/v1/users", users);
+app.use("/api/v1/orders", orders);
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
