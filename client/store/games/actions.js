@@ -5,9 +5,6 @@ import {
   CREATE_GAME_REQUEST,
   CREATE_GAME_FAILURE,
   CREATE_GAME_SUCCESS,
-  SEARCH_GAMES_REQUEST,
-  SEARCH_GAMES_SUCCESS,
-  SEARCH_GAMES_FAILURE,
   REMOVE_GAME_REQUEST,
   REMOVE_GAME_SUCCESS,
   REMOVE_GAME_FAILURE,
@@ -21,12 +18,12 @@ import {
 
 import * as gameService from "../../services/gameService";
 
-const loadGames = dispatch => async () => {
+const loadGames = dispatch => async url => {
   try {
     dispatch({
       type: LOAD_GAMES_REQUEST
     });
-    const res = await gameService.loadGames();
+    const res = await gameService.loadGames(url);
     dispatch({ type: LOAD_GAMES_SUCCESS, payload: res.data });
   } catch (err) {
     dispatch({
@@ -51,25 +48,6 @@ const createGame = dispatch => async gameData => {
       payload: err
     });
 
-    throw err;
-  }
-};
-
-const searchGames = dispatch => async searchTerm => {
-  try {
-    dispatch({
-      type: SEARCH_GAMES_REQUEST
-    });
-    const res = await gameService.searchGames(searchTerm);
-    dispatch({
-      type: SEARCH_GAMES_SUCCESS,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({
-      type: SEARCH_GAMES_FAILURE,
-      payload: err
-    });
     throw err;
   }
 };
@@ -125,4 +103,4 @@ const updateGame = dispatch => async gameData => {
   }
 };
 
-export { loadGames, createGame, searchGames, removeGame, getGame, updateGame };
+export { loadGames, createGame, removeGame, getGame, updateGame };

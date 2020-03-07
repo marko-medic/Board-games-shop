@@ -17,6 +17,7 @@ const getAll = async (req, res, next) => {
   try {
     const query = {};
     const searchTerm = req.query.search;
+
     if (searchTerm) {
       query.name = new RegExp(searchTerm, "i");
     }

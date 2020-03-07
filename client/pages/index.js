@@ -10,14 +10,10 @@ import { SearchFilter } from "../components/SearchFilter";
 import { Modal } from "../components/Modal";
 import { getErrorMessage } from "../shared/helpers";
 
-const Home = () => {
-  const {
-    loadGames,
-    list: gameList,
-    searchGames,
-    removeGame,
-    loading
-  } = useContext(BgContext);
+const Home = ({ asPath }) => {
+  const { loadGames, list: gameList, removeGame, loading } = useContext(
+    BgContext
+  );
   const router = useRouter();
   const { isAdmin } = useContext(AuthContext);
   const [isModalOpen, setisModalOpen] = useState(false);
@@ -26,10 +22,10 @@ const Home = () => {
   let fetching = true;
   useEffect(() => {
     if (fetching) {
-      loadGames();
+      loadGames(asPath);
     }
     return () => (fetching = false);
-  }, []);
+  }, [asPath]);
 
   const submitModalHandler = async () => {
     if (isEmpty(currentGame)) {
@@ -79,7 +75,7 @@ const Home = () => {
         <Loader />
       ) : (
         <main>
-          <SearchFilter submitCb={searchGames} />
+          <SearchFilter />
           {gameList.length > 0 ? (
             <>
               <strong>Here you can see all available board games:</strong>
@@ -107,5 +103,9 @@ const Home = () => {
     </div>
   );
 };
+
+Home.getInitialProps = async ({ asPath }) => ({
+  asPath
+});
 
 export default Home;

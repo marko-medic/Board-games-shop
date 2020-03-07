@@ -1,16 +1,31 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
-function SearchFilter({ submitCb }) {
-  const input = useRef();
+function SearchFilter() {
+  const router = useRouter();
+  const [state, setState] = useState("");
+
+  useEffect(() => {
+    setState(router.query.search || "");
+  }, []);
 
   const submitHandler = e => {
     e.preventDefault();
-    submitCb(input.current.value);
+    let url = "/";
+    if (state) {
+      url += "?search=" + state;
+    }
+    router.push(url);
   };
 
   return (
     <form onSubmit={submitHandler}>
-      <input ref={input} type="text" placeholder="Search" />
+      <input
+        value={state}
+        onChange={e => setState(e.target.value)}
+        type="text"
+        placeholder="Search"
+      />
       <button className="btn">Search</button>
       <style jsx>{`
         form {

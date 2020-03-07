@@ -3,7 +3,6 @@ import { initialState, reducer } from "../store/games/state";
 import {
   loadGames,
   createGame,
-  searchGames,
   removeGame,
   getGame,
   updateGame
@@ -11,9 +10,8 @@ import {
 
 const BgContext = createContext({
   ...initialState,
-  loadGames: async () => {},
+  loadGames: async url => {},
   createGame: async gameData => {},
-  searchGames: async searchTerm => {},
   removeGame: async gameId => {},
   getGame: async gameId => {},
   updateGame: async gameId => {}
@@ -26,7 +24,6 @@ const BgProvider = ({ children }) => {
         ...state,
         loadGames: loadGames(dispatch),
         createGame: createGame(dispatch),
-        searchGames: searchGames(dispatch),
         removeGame: removeGame(dispatch),
         getGame: getGame(dispatch),
         updateGame: updateGame(dispatch)

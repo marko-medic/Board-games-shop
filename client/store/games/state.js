@@ -7,9 +7,6 @@ import {
   CREATE_GAME_REQUEST,
   CREATE_GAME_SUCCESS,
   CREATE_GAME_FAILURE,
-  SEARCH_GAMES_REQUEST,
-  SEARCH_GAMES_SUCCESS,
-  SEARCH_GAMES_FAILURE,
   REMOVE_GAME_REQUEST,
   REMOVE_GAME_SUCCESS,
   REMOVE_GAME_FAILURE,
@@ -31,7 +28,6 @@ export const initialState = {
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_GAMES_REQUEST:
-    case SEARCH_GAMES_REQUEST:
     case REMOVE_GAME_REQUEST:
     case CREATE_GAME_REQUEST:
     case GET_GAME_REQUEST:
@@ -41,7 +37,6 @@ export const reducer = (state = initialState, action) => {
         loading: true
       };
     case LOAD_GAMES_SUCCESS:
-    case SEARCH_GAMES_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -89,7 +84,6 @@ export const reducer = (state = initialState, action) => {
         list: [...updatedGameList]
       };
     case LOAD_GAMES_FAILURE:
-    case SEARCH_GAMES_FAILURE:
     case REMOVE_GAME_FAILURE:
     case GET_GAME_FAILURE:
     case UPDATE_GAME_FAILURE:
