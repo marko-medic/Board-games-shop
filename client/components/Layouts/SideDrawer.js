@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import { OrderContext } from "../contexts/orderContext";
-import { CartOrders } from "./CartOrders";
+import { OrderContext } from "../../contexts/OrderContext";
+import { CartOrders } from "../UI/CartOrders";
 
 function SideDrawer() {
   const [className, setClassName] = useState("");

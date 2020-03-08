@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from "react";
-import { OrderContext } from "../contexts/orderContext";
-import { BgContext } from "../contexts/gameContext";
+import React, { useContext } from "react";
+import { OrderContext } from "../../contexts/OrderContext";
+import { BgContext } from "../../contexts/GameContext";
 
 function CartOrders({ showButtons = false }) {
   const { addToCart, removeFromCart, order } = useContext(OrderContext);

@@ -13,17 +13,20 @@ import {
   EMPTY_CART,
   REMOVE_FROM_CART,
   AUTO_INIT_ORDERS,
-  DESTROY
+  DESTROY,
+  GET_CUSTOMER_ORDERS_REQUEST,
+  GET_CUSTOMER_ORDERS_SUCCESS,
+  GET_CUSTOMER_ORDERS_FAILURE
 } from "./actionTypes";
 
 import * as orderService from "../../services/orderService";
 
-const getOrders = dispatch => async () => {
+const getOrders = dispatch => async url => {
+  dispatch({
+    type: GET_ORDERS_REQUEST
+  });
   try {
-    dispatch({
-      type: GET_ORDERS_REQUEST
-    });
-    const res = await orderService.getOrders();
+    const res = await orderService.getOrders(url);
     dispatch({ type: GET_ORDERS_SUCCESS, payload: res.data });
   } catch (err) {
     dispatch({
@@ -35,12 +38,11 @@ const getOrders = dispatch => async () => {
 };
 
 const createOrder = dispatch => async (userId, orderData) => {
+  dispatch({
+    type: CREATE_ORDER_REQUEST
+  });
   try {
-    dispatch({
-      type: CREATE_ORDER_REQUEST
-    });
     const res = await orderService.createOrder(userId, orderData);
-
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: res.data });
   } catch (err) {
     dispatch({
@@ -49,6 +51,24 @@ const createOrder = dispatch => async (userId, orderData) => {
     });
 
     throw err;
+  }
+};
+
+const getCustomerOrders = dispatch => async payload => {
+  dispatch({
+    type: GET_CUSTOMER_ORDERS_REQUEST
+  });
+  try {
+    const res = await orderService.getCustomerOrders(payload);
+    dispatch({
+      type: GET_CUSTOMER_ORDERS_SUCCESS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_CUSTOMER_ORDERS_FAILURE,
+      payload: err
+    });
   }
 };
 
@@ -90,6 +110,7 @@ const emptyCart = dispatch => () => dispatch({ type: EMPTY_CART });
 
 export {
   getOrders,
+  getCustomerOrders,
   createOrder,
   addToCart,
   removeFromCart,

@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import Loader from "react-loader-spinner";
-import { BgContext } from "../contexts/gameContext";
+import { BgContext } from "../contexts/GameContext";
 import { withAuth } from "../HOC/withAuth";
-import { GameForm } from "../components/GameForm";
+import { GameForm } from "../components/UI/GameForm";
 
 function Create() {
   const { createGame, loading } = useContext(BgContext);

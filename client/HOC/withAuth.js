@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import { AuthContext } from "../contexts/authContext";
+import { AuthContext } from "../contexts/AuthContext";
 
 function withAuth(WrappedComponent, authOptions) {
   return function(props) {

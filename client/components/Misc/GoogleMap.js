@@ -6,7 +6,7 @@ import {
   GoogleMap,
   Marker
 } from "react-google-maps";
-import { API_KEY } from "../shared/constants";
+import { API_KEY } from "../../shared/constants";
 
 export const GoogleMapElem = compose(
   withProps({

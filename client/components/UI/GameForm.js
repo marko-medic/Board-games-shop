@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 import Loader from "react-loader-spinner";
-import { createFormData, getErrorMessage } from "../shared/helpers";
-import { BgContext } from "../contexts/gameContext";
+import { createFormData, getErrorMessage } from "../../shared/helpers";
+import { BgContext } from "../../contexts/GameContext";
 
 const DEFAULT_STATE = {
   name: "",

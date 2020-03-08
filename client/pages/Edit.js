@@ -3,8 +3,8 @@ import { isEmpty } from "lodash";
 import { toast } from "react-toastify";
 import Loader from "react-loader-spinner";
 import { useRouter } from "next/router";
-import { BgContext } from "../contexts/gameContext";
-import { GameForm } from "../components/GameForm";
+import { BgContext } from "../contexts/GameContext";
+import { GameForm } from "../components/UI/GameForm";
 import { getErrorMessage } from "../shared/helpers";
 
 function Edit() {

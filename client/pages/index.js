@@ -3,12 +3,12 @@ import { useRouter } from "next/router";
 import { isEmpty } from "lodash";
 import { toast } from "react-toastify";
 import Loader from "react-loader-spinner";
-import { BgContext } from "../contexts/gameContext";
-import { AuthContext } from "../contexts/authContext";
-import { OrderContext } from "../contexts/orderContext";
-import { BoardGame } from "../components/BoardGame";
-import { SearchFilter } from "../components/SearchFilter";
-import { Modal } from "../components/Modal";
+import { BgContext } from "../contexts/GameContext";
+import { AuthContext } from "../contexts/AuthContext";
+import { OrderContext } from "../contexts/OrderContext";
+import { BoardGame } from "../components/UI/BoardGame";
+import { SearchFilter } from "../components/UI/SearchFilter";
+import { Modal } from "../components/UI/Modal";
 import { getErrorMessage } from "../shared/helpers";
 
 const Home = ({ asPath }) => {
@@ -22,6 +22,7 @@ const Home = ({ asPath }) => {
   const [currentGame, setCurrentGame] = useState({});
 
   let fetching = true;
+
   useEffect(() => {
     if (fetching) {
       loadGames(asPath);

@@ -8,6 +8,9 @@ function Order({ order, index }) {
           Name: <strong>{game.name}</strong>
         </p>
         <p>
+          Count: <strong>{game.count}</strong>
+        </p>
+        <p>
           Price: <strong>{game.price}</strong>
         </p>
       </div>

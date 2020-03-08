@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import Loader from "react-loader-spinner";
-import { AuthContext } from "../contexts/authContext";
+import { AuthContext } from "../contexts/AuthContext";
 import { withAuth } from "../HOC/withAuth";
-import { UserForm } from "../components/UserForm";
+import { UserForm } from "../components/UI/UserForm";
 import { getErrorMessage } from "../shared/helpers";
 
 function Register() {

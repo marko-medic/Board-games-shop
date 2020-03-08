@@ -22,6 +22,7 @@ router.route("/").get(orderController.getAll);
 */
 router
   .route("/:userId")
+  .get(checkToken, checkUserAuth, orderController.getUserOrders)
   .post(checkToken, checkUserAuth, orderController.create);
 
 module.exports = router;

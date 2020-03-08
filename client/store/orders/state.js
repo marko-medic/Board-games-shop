@@ -14,7 +14,10 @@ import {
   EMPTY_CART,
   REMOVE_FROM_CART,
   AUTO_INIT_ORDERS,
-  DESTROY
+  DESTROY,
+  GET_CUSTOMER_ORDERS_REQUEST,
+  GET_CUSTOMER_ORDERS_SUCCESS,
+  GET_CUSTOMER_ORDERS_FAILURE
 } from "./actionTypes";
 
 export const initialState = {
@@ -153,11 +156,13 @@ export const reducer = (state = initialState, action) => {
       };
     case GET_ORDERS_REQUEST:
     case CREATE_ORDER_REQUEST:
+    case GET_CUSTOMER_ORDERS_REQUEST:
       return {
         ...state,
         loading: true
       };
     case GET_ORDERS_SUCCESS:
+    case GET_CUSTOMER_ORDERS_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -175,6 +180,7 @@ export const reducer = (state = initialState, action) => {
 
     case GET_ORDERS_FAILURE:
     case CREATE_ORDER_FAILURE:
+    case GET_CUSTOMER_ORDERS_FAILURE:
       return {
         ...state,
         loading: false,

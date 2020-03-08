@@ -2,6 +2,7 @@ import React, { createContext, useReducer, memo } from "react";
 import { initialState, reducer } from "../store/orders/state";
 import {
   getOrders,
+  getCustomerOrders,
   createOrder,
   addToCart,
   openDrawer,
@@ -25,7 +26,8 @@ const OrderContext = createContext({
   setDeliveryMethod: method => {},
   addToCart: game => {},
   removeFromCart: game => {},
-  getOrders: async () => {},
+  getOrders: async url => {},
+  getCustomerOrders: async customerId => {},
   createOrder: async (userId, orderData) => {}
 });
 const OrderProvider = ({ children }) => {
@@ -41,6 +43,7 @@ const OrderProvider = ({ children }) => {
         addToCart: addToCart(state, dispatch),
         removeFromCart: removeFromCart(state, dispatch),
         getOrders: getOrders(dispatch),
+        getCustomerOrders: getCustomerOrders(dispatch),
         createOrder: createOrder(dispatch),
         setShippingAddress: setShippingAddress(dispatch),
         setDeliveryMethod: setDeliveryMethod(dispatch),

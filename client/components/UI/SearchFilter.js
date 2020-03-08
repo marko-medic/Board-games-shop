@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-function SearchFilter() {
+function SearchFilter({ placeholderText = "Search" }) {
   const router = useRouter();
   const [state, setState] = useState("");
 
@@ -11,7 +11,7 @@ function SearchFilter() {
 
   const submitHandler = e => {
     e.preventDefault();
-    let url = "/";
+    let url = router.pathname || "";
     if (state) {
       url += "?search=" + state;
     }
@@ -24,7 +24,7 @@ function SearchFilter() {
         value={state}
         onChange={e => setState(e.target.value)}
         type="text"
-        placeholder="Search"
+        placeholder={placeholderText}
       />
       <button className="btn">Search</button>
       <style jsx>{`

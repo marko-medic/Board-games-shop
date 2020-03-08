@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { isEmpty } from "lodash";
 import { toast } from "react-toastify";
-import { getCountries } from "../services/countryService";
-import { BgContext } from "../contexts/gameContext";
+import { getCountries } from "../../services/countryService";
+import { BgContext } from "../../contexts/GameContext";
 import Loader from "react-loader-spinner";
-import { getErrorMessage } from "../shared/helpers";
+import { getErrorMessage } from "../../shared/helpers";
 
 const DEFAULT_STATE = {
   username: "",

@@ -22,7 +22,7 @@ const getAll = async (req, res, next) => {
     const searchTerm = req.query.search;
 
     if (searchTerm) {
-      query.name = new RegExp(searchTerm, "i");
+      query["userInfo.username"] = new RegExp(searchTerm, "i");
     }
     const results = await OrderModel.find(query);
     return res.status(200).json({
@@ -38,13 +38,44 @@ const getAll = async (req, res, next) => {
   }
 };
 
+const getUserOrders = async (req, res, next) => {
+  const id = req.params.userId;
+  const query = {};
+  const searchTerm = req.query.search;
+
+  if (searchTerm) {
+    query["orderedGames.name"] = new RegExp(searchTerm, "i");
+  }
+
+  try {
+    if (!id) {
+      throw new Error("Invalid request");
+    }
+    const user = await _findUser(id);
+    query["userInfo.userId"] = user._id;
+
+    const orderedUserGames = await OrderModel.find(query);
+    return res.status(200).json({
+      success: true,
+      data: orderedUserGames,
+      count: orderedUserGames.length
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      success: false,
+      error: err
+    });
+  }
+};
+
 const create = async (req, res, next) => {
   const id = req.params.userId;
   const orderedGames = req.body.orderedGames;
-  if (!orderedGames || !id) {
-    throw new Error("Invalid request!");
-  }
   try {
+    if (!orderedGames || !id) {
+      throw new Error("Invalid request!");
+    }
     const user = await _findUser(id);
     const orderedGamesIds = orderedGames.map(game => game.gameId);
     const dbOrderedGames = await GameModel.find({
@@ -89,7 +120,6 @@ const create = async (req, res, next) => {
     });
   } catch (err) {
     console.log(err);
-
     res.status(500).json({
       success: false,
       error: err
@@ -98,6 +128,7 @@ const create = async (req, res, next) => {
 };
 
 module.exports = {
-  create,
-  getAll
+  getAll,
+  getUserOrders,
+  create
 };

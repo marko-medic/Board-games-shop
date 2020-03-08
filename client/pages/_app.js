@@ -5,12 +5,12 @@ import "materialize-css/dist/css/materialize.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "animate.css";
-import { BgProvider } from "../contexts/gameContext";
-import { AuthProvider } from "../contexts/authContext";
-import { OrderProvider } from "../contexts/orderContext";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
-import { SideDrawer } from "../components/SideDrawer";
+import { BgProvider } from "../contexts/GameContext";
+import { AuthProvider } from "../contexts/AuthContext";
+import { OrderProvider } from "../contexts/OrderContext";
+import { Header } from "../components/Layouts/Header";
+import { Footer } from "../components/Layouts/Footer";
+import { SideDrawer } from "../components/Layouts/SideDrawer";
 
 function MyApp({ Component, pageProps }) {
   return (

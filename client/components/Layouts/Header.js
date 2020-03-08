@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { AuthContext } from "../contexts/authContext";
-import { OrderContext } from "../contexts/orderContext";
+import { AuthContext } from "../../contexts/AuthContext";
+import { OrderContext } from "../../contexts/OrderContext";
 
 function Header() {
   const { pathname, push } = useRouter();
@@ -18,7 +18,7 @@ function Header() {
     cartItemsCount,
     openDrawer,
     autoInitOrders,
-    destroy: orderDestroy
+    destroy: ordersDestroy
   } = useContext(OrderContext);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function Header() {
   const logout = e => {
     e.preventDefault();
     destroy();
-    orderDestroy();
+    ordersDestroy();
     push("/");
   };
 
@@ -79,6 +79,19 @@ function Header() {
             </div>
           </ul>
           <ul className="right">
+            {isCustomer && (
+              <li>
+                <Link href="/customer_orders">
+                  <a
+                    className={
+                      pathname === "/customer_orders" ? "active" : null
+                    }
+                  >
+                    My orders
+                  </a>
+                </Link>
+              </li>
+            )}
             {isCustomer && pathname !== "/checkout" && (
               <li>
                 <a className="d-flex" href="/" onClick={cartHandler}>

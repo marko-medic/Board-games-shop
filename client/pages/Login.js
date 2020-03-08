@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import Loader from "react-loader-spinner";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import { AuthContext } from "../contexts/authContext";
+import { AuthContext } from "../contexts/AuthContext";
 import { withAuth } from "../HOC/withAuth";
 import { getErrorMessage } from "../shared/helpers";
 

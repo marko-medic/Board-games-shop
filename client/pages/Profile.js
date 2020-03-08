@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { toast } from "react-toastify";
-import { UserForm } from "../components/UserForm";
-import { AuthContext } from "../contexts/authContext";
+import { UserForm } from "../components/UI/UserForm";
+import { AuthContext } from "../contexts/AuthContext";
 import { withAuth } from "../HOC/withAuth";
 import { getErrorMessage } from "../shared/helpers";
 

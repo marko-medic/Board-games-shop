@@ -1,15 +1,21 @@
 import React, { useContext, useEffect } from "react";
+import { withRouter } from "next/router";
 import Loader from "react-loader-spinner";
 import { withAuth } from "../HOC/withAuth";
-import { OrderContext } from "../contexts/orderContext";
-import { Order } from "../components/Order";
+import { OrderContext } from "../contexts/OrderContext";
+import { Order } from "../components/UI/Order";
+import { SearchFilter } from "../components/UI/SearchFilter";
 
-function Orders() {
+function Orders({ router }) {
   const { getOrders, list, loading } = useContext(OrderContext);
 
   useEffect(() => {
-    getOrders();
-  }, []);
+    let url = "";
+    if (router.query.search) {
+      url = "?search=" + router.query.search;
+    }
+    getOrders(url);
+  }, [router.query.search]);
 
   const renderOrders = () =>
     list.map((order, index) => (
@@ -22,14 +28,18 @@ function Orders() {
   return (
     <div className="orders">
       <h3>Order list:</h3>
-      <div className="row">{renderOrders()}</div>
+      <SearchFilter placeholderText="Search by customer name" />
+      <div className="row mt-1">{renderOrders()}</div>
       <style jsx>{`
         .orders {
           text-align: center;
+        }
+        .mt-1 {
+          margin-top: 1rem;
         }
       `}</style>
     </div>
   );
 }
 
-export default withAuth(Orders, { authType: "admin" });
+export default withRouter(withAuth(Orders, { authType: "admin" }));

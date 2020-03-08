@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { toast } from "react-toastify";
 import { sendEmail } from "../services/userService";
-import { GoogleMapElem } from "../components/GoogleMap";
+import { GoogleMapElem } from "../components/Misc/GoogleMap";
 
 function Contact() {
   const [state, setState] = useState({

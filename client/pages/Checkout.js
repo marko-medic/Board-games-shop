@@ -2,10 +2,10 @@ import React, { useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 import Loader from "react-loader-spinner";
 import { useRouter } from "next/router";
-import { OrderContext } from "../contexts/orderContext";
-import { AuthContext } from "../contexts/authContext";
+import { OrderContext } from "../contexts/OrderContext";
+import { AuthContext } from "../contexts/AuthContext";
 import { withAuth } from "../HOC/withAuth";
-import { CartOrders } from "../components/CartOrders";
+import { CartOrders } from "../components/UI/CartOrders";
 
 function Checkout() {
   const {
@@ -59,7 +59,7 @@ function Checkout() {
         totalPrice={order.totalPrice}
         orderList={order.orderedGames}
       />
-      <div class="input-field col s12">
+      <div className="input-field col s12">
         <form onSubmit={submitHandler}>
           <input
             required
@@ -74,7 +74,7 @@ function Checkout() {
             value={order.deliveryType || "initial"}
             onChange={e => setDeliveryMethod(e.target.value)}
           >
-            <option value="initial" disabled selected>
+            <option value="initial" disabled>
               Choose your delivery type
             </option>
             <option value="fast">Regular</option>
