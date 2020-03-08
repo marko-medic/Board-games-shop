@@ -27,6 +27,8 @@ const getOrders = dispatch => async url => {
   });
   try {
     const res = await orderService.getOrders(url);
+    console.log(res);
+
     dispatch({ type: GET_ORDERS_SUCCESS, payload: res.data });
   } catch (err) {
     dispatch({
@@ -106,7 +108,10 @@ const destroy = dispatch => () => {
   });
 };
 
-const emptyCart = dispatch => () => dispatch({ type: EMPTY_CART });
+const emptyCart = dispatch => () => {
+  localStorage.removeItem("orders");
+  dispatch({ type: EMPTY_CART });
+};
 
 export {
   getOrders,

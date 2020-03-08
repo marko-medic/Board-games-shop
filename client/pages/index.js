@@ -87,7 +87,7 @@ const Home = ({ asPath }) => {
               <div className="row">{renderGames()}</div>
             </>
           ) : (
-            <strong>We don't have any board games yet!</strong>
+            <strong>No games found!</strong>
           )}
         </main>
       )}
@@ -103,6 +103,7 @@ const Home = ({ asPath }) => {
         img {
           height: 200px;
           width: 200px;
+          margin-bottom: 1rem;
         }
       `}</style>
     </div>

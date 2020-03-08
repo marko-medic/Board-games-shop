@@ -1,6 +1,6 @@
 import { apiRequest } from "./httpService";
 
-const getOrders = async (url = "") => apiRequest("/get", "/orders/" + url);
+const getOrders = async (url = "") => apiRequest("get", "/orders/" + url);
 
 const getCustomerOrders = async customerId =>
   apiRequest("get", "/orders/" + customerId);

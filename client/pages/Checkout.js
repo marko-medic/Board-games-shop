@@ -36,6 +36,14 @@ function Checkout() {
     }
   };
 
+  const selectHandler = e => {
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    setDeliveryMethod({
+      method: e.target.value,
+      by: selectedOption.dataset.by
+    });
+  };
+
   const _isStateValid = () =>
     order.shippingAddress.trim().length !== 0 &&
     order.deliveryType.trim().length !== 0;
@@ -69,16 +77,16 @@ function Checkout() {
             type="text"
             className="validate"
           />
-          <select
-            required
-            value={order.deliveryType || "initial"}
-            onChange={e => setDeliveryMethod(e.target.value)}
-          >
-            <option value="initial" disabled>
+          <select required value={order.deliveryType} onChange={selectHandler}>
+            <option value="" disabled>
               Choose your delivery type
             </option>
-            <option value="fast">Regular</option>
-            <option value="regular">Fast</option>
+            <option data-by="-10" value="regular">
+              Regular
+            </option>
+            <option data-by="10" value="fast">
+              Fast
+            </option>
           </select>
           <button
             type="submit"

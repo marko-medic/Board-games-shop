@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { withRouter } from "next/router";
+import { isEmpty } from "lodash";
 import Loader from "react-loader-spinner";
 import { withAuth } from "../HOC/withAuth";
 import { OrderContext } from "../contexts/OrderContext";
@@ -25,11 +26,16 @@ function Orders({ router }) {
   if (loading) {
     return <Loader />;
   }
+
   return (
     <div className="orders">
       <h3>Order list:</h3>
       <SearchFilter placeholderText="Search by customer name" />
-      <div className="row mt-1">{renderOrders()}</div>
+      {isEmpty(list) ? (
+        <h5>No orders found!</h5>
+      ) : (
+        <div className="row mt-1">{renderOrders()}</div>
+      )}
       <style jsx>{`
         .orders {
           text-align: center;

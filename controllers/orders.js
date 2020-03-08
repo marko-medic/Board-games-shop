@@ -2,6 +2,7 @@ const OrderModel = require("../models/Order");
 const UserModel = require("../models/User");
 const GameModel = require("../models/Game");
 const emailManager = require("../shared/emailManager");
+const { FAST_SHPPING_PRICE } = require("../shared/constants");
 
 const _findUser = async id => {
   try {
@@ -84,17 +85,26 @@ const create = async (req, res, next) => {
       }
     });
 
-    const transformedOrderedGames = dbOrderedGames.map((game, index) => ({
-      gameId: game._id,
-      name: game.name,
-      price: game.price,
-      count: orderedGames[index].count || 1
-    }));
+    const transformedOrderedGames = dbOrderedGames.map(game => {
+      const orderedGameMatch = orderedGames.find(
+        oGame => oGame._id === game.id
+      );
+      return {
+        gameId: game._id,
+        name: game.name,
+        price: game.price,
+        count: orderedGameMatch.count || 1
+      };
+    });
 
-    const totalPrice = transformedOrderedGames.reduce(
+    let totalPrice = transformedOrderedGames.reduce(
       (acc, curr) => acc + Number(curr.price) * curr.count,
       0
     );
+
+    if (req.body.deliveryType === "fast") {
+      totalPrice += FAST_SHPPING_PRICE;
+    }
 
     const dataObject = {
       userInfo: {
@@ -104,7 +114,7 @@ const create = async (req, res, next) => {
       },
       orderedGames: transformedOrderedGames,
       totalPrice: `$${totalPrice}`,
-      shippingAddress: req.body.shippingAddress,
+      shippingAddress: `${req.body.shippingAddress}, ${user.country}`,
       deliveryType: req.body.deliveryType
     };
 

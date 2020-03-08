@@ -34,7 +34,9 @@ function Customer_orders({ router }) {
   }
 
   if (isEmpty(list)) {
-    return <h1 style={{ textAlign: "center" }}>You don't have any orders</h1>;
+    return (
+      <h3 style={{ textAlign: "center" }}>You don't have any orders yet!</h3>
+    );
   }
 
   return (

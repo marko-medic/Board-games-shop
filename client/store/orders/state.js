@@ -25,7 +25,6 @@ export const initialState = {
   isDrawerOpen: false,
   cartItemsCount: 0,
   order: {
-    deliveryType: "",
     orderedGames: [
       // {
       //   count: 1,
@@ -35,6 +34,7 @@ export const initialState = {
       // },
     ],
     totalPrice: "0",
+    deliveryType: "",
     shippingAddress: ""
   },
   error: null,
@@ -42,7 +42,8 @@ export const initialState = {
 };
 
 const _addToCart = (state, action) => {
-  const gamesArray = cloneDeep(state.order.orderedGames);
+  const clonedState = cloneDeep(state);
+  const gamesArray = clonedState.order.orderedGames;
   const gameIndex = gamesArray.findIndex(
     game => game._id === action.payload._id
   );
@@ -56,21 +57,18 @@ const _addToCart = (state, action) => {
 
   if (gameIndex === -1) {
     gamesArray.push(transformedGame);
-    state.order.totalPrice = String(
-      Number(state.order.totalPrice) + Number(transformedGame.price)
-    );
   } else {
     gamesArray[gameIndex].count++;
     gamesArray[gameIndex].price = String(
-      Number(gamesArray[gameIndex].price) + Number(action.payload.price)
-    );
-    state.order.totalPrice = String(
-      Number(state.order.totalPrice) + Number(action.payload.price)
+      Number(gamesArray[gameIndex].price) + Number(transformedGame.price)
     );
   }
+  clonedState.order.totalPrice = String(
+    Number(clonedState.order.totalPrice) + Number(transformedGame.price)
+  );
   return {
     transformedList: gamesArray,
-    totalPrice: state.order.totalPrice
+    totalPrice: clonedState.order.totalPrice
   };
 };
 
@@ -95,6 +93,21 @@ const _removeFromCart = (state, action) => {
     filteredList: gamesArray,
     updatedPrice
   };
+};
+
+const _setDeliveryMethod = (state, action) => {
+  let totalPrice = state.order.totalPrice;
+  const oldDeliveryType = state.order.deliveryType;
+  const { method, by } = action.payload;
+
+  if (method === "fast") {
+    totalPrice = String(Number(totalPrice) + Number(by));
+  } else if (method === "regular") {
+    if (oldDeliveryType === "fast") {
+      totalPrice = String(Number(totalPrice) + Number(by));
+    }
+  }
+  return totalPrice;
 };
 
 export const reducer = (state = initialState, action) => {
@@ -135,11 +148,13 @@ export const reducer = (state = initialState, action) => {
         }
       };
     case SET_DELIVERY_METHOD:
+      const newPrice = _setDeliveryMethod(state, action);
       return {
         ...state,
         order: {
           ...state.order,
-          deliveryType: action.payload
+          deliveryType: action.payload.method,
+          totalPrice: newPrice
         }
       };
     case EMPTY_CART:
@@ -175,6 +190,7 @@ export const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
+        order: initialState.order,
         list: [...state.list, action.payload]
       };
 
@@ -188,7 +204,6 @@ export const reducer = (state = initialState, action) => {
       };
     case DESTROY:
       return initialState;
-
     default:
       return state;
   }

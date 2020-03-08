@@ -9,8 +9,12 @@ function withAuth(WrappedComponent, authOptions) {
     const { isAdmin, isAuth } = useContext(AuthContext);
     const [isAuthLoaded, setIsAuthLoaded] = useState(false);
 
+    let loading = false;
     useEffect(() => {
-      setIsAuthLoaded(true);
+      if (!loading) {
+        setIsAuthLoaded(true);
+      }
+      return () => (loading = true);
     }, [isAuth]);
 
     useEffect(() => {
