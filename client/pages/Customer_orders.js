@@ -33,17 +33,16 @@ function Customer_orders({ router }) {
     return <Loader />;
   }
 
-  if (isEmpty(list)) {
-    return (
-      <h3 style={{ textAlign: "center" }}>You don't have any orders yet!</h3>
-    );
-  }
-
   return (
     <div className="customer_orders">
       <h3>My orders:</h3>
       <SearchFilter placeholderText="Search by game name" />
-      <div className="row">{renderOrders()}</div>
+      {isEmpty(list) ? (
+        <h5>No orders found!</h5>
+      ) : (
+        <div className="row">{renderOrders()}</div>
+      )}
+
       <style jsx>{`
         .customer_orders {
           text-align: center;

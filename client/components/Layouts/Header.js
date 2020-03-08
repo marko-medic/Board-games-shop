@@ -64,7 +64,7 @@ function Header() {
               <li>
                 <Link href="/create">
                   <a className={pathname === "/create" ? "active" : null}>
-                    Create board game
+                    Insert board game
                   </a>
                 </Link>
               </li>

@@ -13,7 +13,7 @@ function Create() {
 
   return (
     <div className="create_bg">
-      <h1>Create new board game</h1>
+      <h1>Insert new board game</h1>
       <GameForm
         submitCb={createGame}
         buttonText="Create new board game"
