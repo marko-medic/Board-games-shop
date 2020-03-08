@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import Loader from "react-loader-spinner";
 import { BgContext } from "../contexts/gameContext";
 import { AuthContext } from "../contexts/authContext";
+import { OrderContext } from "../contexts/orderContext";
 import { BoardGame } from "../components/BoardGame";
 import { SearchFilter } from "../components/SearchFilter";
 import { Modal } from "../components/Modal";
@@ -14,8 +15,9 @@ const Home = ({ asPath }) => {
   const { loadGames, list: gameList, removeGame, loading } = useContext(
     BgContext
   );
+  const { isAdmin, isCustomer } = useContext(AuthContext);
+  const { addToCart } = useContext(OrderContext);
   const router = useRouter();
-  const { isAdmin } = useContext(AuthContext);
   const [isModalOpen, setisModalOpen] = useState(false);
   const [currentGame, setCurrentGame] = useState({});
 
@@ -45,16 +47,18 @@ const Home = ({ asPath }) => {
     gameList.map(game => (
       <BoardGame
         key={game._id}
-        name={game.name}
-        description={game.description}
-        imageURL={game.imageURL}
-        id={game._id}
+        game={game}
         editHandler={() => router.push("/edit?id=" + game._id)}
         removeHandler={() => {
           setisModalOpen(true);
           setCurrentGame(game);
         }}
-        showButtons={isAdmin}
+        addToCartHandler={() => {
+          setCurrentGame(game);
+          addToCart(game);
+        }}
+        isAdmin={isAdmin}
+        isCustomer={isCustomer}
       />
     ));
 

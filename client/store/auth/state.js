@@ -14,6 +14,7 @@ import {
 
 const initialState = {
   isAuth: false,
+  isCustomer: false,
   isAdmin: false,
   user: {},
   error: null,
@@ -31,7 +32,8 @@ const reducer = (state, action) => {
       return {
         ...state,
         isAuth: false,
-        isAdmin: false
+        isAdmin: false,
+        isCustomer: false
       };
 
     case REGISTER_USER_REQUEST:
@@ -50,6 +52,7 @@ const reducer = (state, action) => {
         error: null,
         isAuth: true,
         isAdmin: action.payload.role && action.payload.role === "admin",
+        isCustomer: action.payload.role && action.payload.role === "user",
         user: { ...action.payload }
       };
     case REGISTER_USER_FAILURE:

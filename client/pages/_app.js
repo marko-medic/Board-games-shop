@@ -4,10 +4,13 @@ import { ToastContainer } from "react-toastify";
 import "materialize-css/dist/css/materialize.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import "animate.css";
 import { BgProvider } from "../contexts/gameContext";
 import { AuthProvider } from "../contexts/authContext";
+import { OrderProvider } from "../contexts/orderContext";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { SideDrawer } from "../components/SideDrawer";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -25,12 +28,14 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <AuthProvider>
         <BgProvider>
-          <Header></Header>
-          <div className="content">
-            <Component {...pageProps} />
-          </div>
-
-          <Footer></Footer>
+          <OrderProvider>
+            <Header></Header>
+            <div className="content">
+              <SideDrawer />
+              <Component {...pageProps} />
+            </div>
+            <Footer></Footer>
+          </OrderProvider>
         </BgProvider>
       </AuthProvider>
 

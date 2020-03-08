@@ -21,12 +21,12 @@ const autoAuthUser = dispatch => () => {
     data = JSON.parse(data);
     user = data.user;
   }
-
   dispatch({
     type: AUTO_AUTH_USER,
     payload: {
       user,
       isAuth: !isEmpty(user),
+      isCustomer: !isEmpty(user) && user.role === "user",
       isAdmin: user.role === "admin"
     }
   });

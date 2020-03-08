@@ -20,7 +20,6 @@ import {
 
 export const initialState = {
   list: [],
-  game: {},
   error: null,
   loading: false
 };

@@ -2,21 +2,40 @@ import React, { useContext, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AuthContext } from "../contexts/authContext";
+import { OrderContext } from "../contexts/orderContext";
 
 function Header() {
   const { pathname, push } = useRouter();
-  const { autoAuthUser, destroy, user, isAuth, isAdmin } = useContext(
-    AuthContext
-  );
+  const {
+    autoAuthUser,
+    destroy,
+    user,
+    isAuth,
+    isAdmin,
+    isCustomer
+  } = useContext(AuthContext);
+  const {
+    cartItemsCount,
+    openDrawer,
+    autoInitOrders,
+    destroy: orderDestroy
+  } = useContext(OrderContext);
 
   useEffect(() => {
     autoAuthUser();
+    autoInitOrders();
   }, []);
 
   const logout = e => {
     e.preventDefault();
     destroy();
+    orderDestroy();
     push("/");
+  };
+
+  const cartHandler = e => {
+    e.preventDefault();
+    openDrawer();
   };
 
   return (
@@ -60,6 +79,25 @@ function Header() {
             </div>
           </ul>
           <ul className="right">
+            {isCustomer && pathname !== "/checkout" && (
+              <li>
+                <a className="d-flex" href="/" onClick={cartHandler}>
+                  <i className="material-icons">shopping_cart </i>
+                  {cartItemsCount > 0 && (
+                    <span className="cart-circle">{cartItemsCount}</span>
+                  )}
+                </a>
+              </li>
+            )}
+            {isAdmin && (
+              <li>
+                <Link href="/orders">
+                  <a className={pathname === "/orders" ? "active" : null}>
+                    Orders
+                  </a>
+                </Link>
+              </li>
+            )}
             {isAuth ? (
               <>
                 <li>
@@ -100,6 +138,9 @@ function Header() {
         nav {
           position: relative;
         }
+        .d-flex {
+          display: flex;
+        }
         .active {
           color: black;
           background: white;
@@ -116,6 +157,17 @@ function Header() {
         .logo img {
           height: 65px;
           width: 100px;
+        }
+        .cart-circle {
+          color: black;
+          background: white;
+          height: 20px;
+          width: 20px;
+          border-radius: 50%;
+          text-align: center;
+          line-height: 20px;
+          margin-top: 10px;
+          font-weight: bold;
         }
       `}</style>
     </header>

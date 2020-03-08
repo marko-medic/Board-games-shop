@@ -43,7 +43,22 @@ const checkAdminAuth = (req, res, next) => {
   return next();
 };
 
+const checkUserAuth = (req, res, next) => {
+  try {
+    if (!req.user || req.user.role !== "user") {
+      throw new Error("FORBIDDEN");
+    }
+  } catch (err) {
+    res.status(401).json({
+      message: "Unauthorized",
+      error: err
+    });
+  }
+  return next();
+};
+
 module.exports = {
   checkToken,
-  checkAdminAuth
+  checkAdminAuth,
+  checkUserAuth
 };

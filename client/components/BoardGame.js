@@ -1,27 +1,33 @@
 import React, { useContext } from "react";
 
 function BoardGame({
-  name,
-  description,
-  id,
-  imageURL,
-  showButtons,
+  game,
+  isAdmin,
+  isCustomer,
   editHandler,
-  removeHandler
+  removeHandler,
+  addToCartHandler
 }) {
   return (
     <div className="col s12 m4">
       <div className="card">
         <div className="card-image">
-          <img src={imageURL} />
-          <strong className="card-title">{name}</strong>
+          <img src={game.imageURL} />
+          <strong className="card-title">{game.name}</strong>
         </div>
         <div className="card-content">
           <p>
-            <em>Description:</em> {description}
+            <em>Description:</em> {game.description}
           </p>
         </div>
-        {showButtons && (
+        {isCustomer && (
+          <div className="card-action">
+            <button className="btn red" onClick={addToCartHandler}>
+              Add to cart (${game.price})
+            </button>
+          </div>
+        )}
+        {isAdmin && (
           <div className="card-action">
             <button className="btn" onClick={editHandler}>
               EDIT
