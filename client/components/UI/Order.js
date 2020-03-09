@@ -32,6 +32,12 @@ function Order({ order, index }) {
         <li>
           Delivery type: <strong>{order.deliveryType}</strong>
         </li>
+        <li>
+          <p>
+            Order date:{" "}
+            <strong>{new Date(order.orderDate).toDateString()}</strong>
+          </p>
+        </li>
         <li className="game-list">
           <p>Ordered games:</p>{" "}
           <div className="games-container row">{renderOrderedGames()}</div>

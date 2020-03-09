@@ -7,6 +7,8 @@ import { AuthContext } from "../contexts/AuthContext";
 import { withAuth } from "../HOC/withAuth";
 import { Order } from "../components/UI/Order";
 import { SearchFilter } from "../components/UI/SearchFilter";
+import { Sorter } from "../components/UI/Sorter";
+import { storeAndGetUrlParams } from "../shared/helpers";
 
 function Customer_orders({ router }) {
   const { getCustomerOrders, list, loading } = useContext(OrderContext);
@@ -16,13 +18,11 @@ function Customer_orders({ router }) {
     if (isEmpty(user)) {
       return;
     }
-    let url = user._id;
-    const searchTerm = router.query.search;
-    if (searchTerm) {
-      url += "?search=" + searchTerm;
-    }
+    const urlString = storeAndGetUrlParams(router.query, {}).toString();
+    const url = `${user._id}?${urlString}`;
+
     getCustomerOrders(url);
-  }, [user, router.query.search]);
+  }, [user, router.asPath]);
 
   const renderOrders = () =>
     list.map((order, index) => (
@@ -37,6 +37,7 @@ function Customer_orders({ router }) {
     <div className="customer_orders">
       <h3>My orders:</h3>
       <SearchFilter placeholderText="Search by game name" />
+      <Sorter items={["deliveryType", "shippingAddress", "orderDate"]} />
       {isEmpty(list) ? (
         <h5>No orders found!</h5>
       ) : (

@@ -10,8 +10,9 @@ import { BoardGame } from "../components/UI/BoardGame";
 import { SearchFilter } from "../components/UI/SearchFilter";
 import { Modal } from "../components/UI/Modal";
 import { getErrorMessage } from "../shared/helpers";
+import { Sorter } from "../components/UI/Sorter";
 
-const Home = ({ asPath }) => {
+const Home = ({ asPath, pathname }) => {
   const { loadGames, list: gameList, removeGame, loading } = useContext(
     BgContext
   );
@@ -81,6 +82,7 @@ const Home = ({ asPath }) => {
       ) : (
         <main>
           <SearchFilter />
+          <Sorter items={["name", "description"]} />
           {gameList.length > 0 ? (
             <>
               <strong>Here you can see all available board games:</strong>

@@ -20,7 +20,8 @@
     "react-dom": "16.13.0",
     "react-google-maps": "^9.4.5",
     "react-loader-spinner": "^3.1.5",
-    "react-toastify": "^5.5.0"
+    "react-toastify": "^5.5.0",
+    "uuid": "^7.0.2"
   },
   "proxy": "http://localhost:5000"
 }

@@ -1,6 +1,6 @@
 import { apiRequest } from "./httpService";
 
-const loadGames = async (url = "") => apiRequest("get", "/games" + url);
+const loadGames = async url => apiRequest("get", "/games" + url);
 
 const createGame = async gameData => apiRequest("post", "/games/", gameData);
 

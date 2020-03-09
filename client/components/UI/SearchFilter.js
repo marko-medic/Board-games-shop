@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { storeAndGetUrlParams } from "../../shared/helpers";
 
 function SearchFilter({ placeholderText = "Search" }) {
   const router = useRouter();
@@ -11,11 +12,11 @@ function SearchFilter({ placeholderText = "Search" }) {
 
   const submitHandler = e => {
     e.preventDefault();
-    let url = router.pathname || "";
-    if (state) {
-      url += "?search=" + state;
-    }
-    router.push(url);
+    const params = storeAndGetUrlParams(router.query, { search: state });
+    router.push({
+      pathname: router.pathname,
+      search: `?${params.toString()}`
+    });
   };
 
   return (

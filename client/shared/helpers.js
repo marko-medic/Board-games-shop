@@ -14,4 +14,15 @@ const getErrorMessage = errObject => {
   return firstCase || secondCase || "Something went wrong";
 };
 
-export { createFormData, getErrorMessage };
+const storeAndGetUrlParams = (url, paramsObject) => {
+  const usp = new URLSearchParams(url);
+  for (let key in paramsObject) {
+    if (usp.has(key)) {
+      usp.delete(key);
+    }
+    usp.append(key, paramsObject[key]);
+  }
+  return usp;
+};
+
+export { createFormData, getErrorMessage, storeAndGetUrlParams };

@@ -6,17 +6,16 @@ import { withAuth } from "../HOC/withAuth";
 import { OrderContext } from "../contexts/OrderContext";
 import { Order } from "../components/UI/Order";
 import { SearchFilter } from "../components/UI/SearchFilter";
+import { Sorter } from "../components/UI/Sorter";
+import { storeAndGetUrlParams } from "../shared/helpers";
 
 function Orders({ router }) {
   const { getOrders, list, loading } = useContext(OrderContext);
 
   useEffect(() => {
-    let url = "";
-    if (router.query.search) {
-      url = "?search=" + router.query.search;
-    }
-    getOrders(url);
-  }, [router.query.search]);
+    const params = storeAndGetUrlParams(router.query, {}).toString();
+    getOrders(`?${params}`);
+  }, [router.asPath]);
 
   const renderOrders = () =>
     list.map((order, index) => (
@@ -31,6 +30,7 @@ function Orders({ router }) {
     <div className="orders">
       <h3>Order list:</h3>
       <SearchFilter placeholderText="Search by customer name" />
+      <Sorter items={["orderDate", "shippingAddress", "deliveryType"]} />
       {isEmpty(list) ? (
         <h5>No orders found!</h5>
       ) : (
