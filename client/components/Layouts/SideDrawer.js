@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter, withRouter } from "next/router";
 import { OrderContext } from "../../contexts/OrderContext";
 import { CartOrders } from "../UI/CartOrders";
 
@@ -17,6 +17,13 @@ function SideDrawer() {
     closeDrawer();
   };
 
+  const keyboardListener = e => {
+    if (e.key !== "Escape") {
+      return;
+    }
+    closeDrawer();
+  };
+
   useEffect(() => {
     setTimeout(() => {
       if (isDrawerOpen) {
@@ -26,6 +33,12 @@ function SideDrawer() {
       }
     }, 0);
   }, [isDrawerOpen]);
+
+  useEffect(() => {
+    window.addEventListener("keydown", keyboardListener);
+    return () => window.removeEventListener("keydown", keyboardListener);
+  }, []);
+
   return (
     <div
       onClick={closeDrawerHandler}
