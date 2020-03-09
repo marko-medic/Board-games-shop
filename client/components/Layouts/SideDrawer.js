@@ -70,6 +70,7 @@ function SideDrawer() {
       <style jsx>{`
         .sideDrawer {
           position: fixed;
+          overflow-x: scroll;
           display: none;
           top: 0;
           left: 0;
@@ -83,7 +84,8 @@ function SideDrawer() {
           background: white;
           height: 100%;
           width: 250px;
-          position: absolute;
+          position: fixed;
+          overflow-x: scroll;
           text-align: center;
           right: 0;
           padding: 1rem;
