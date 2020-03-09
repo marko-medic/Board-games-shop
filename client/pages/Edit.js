@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { BgContext } from "../contexts/GameContext";
 import { GameForm } from "../components/UI/GameForm";
 import { getErrorMessage } from "../shared/helpers";
+import { withAuth } from "../HOC/withAuth";
 
 function Edit() {
   const router = useRouter();
@@ -54,4 +55,4 @@ function Edit() {
   );
 }
 
-export default Edit;
+export default withAuth(Edit, { authType: "admin" });
