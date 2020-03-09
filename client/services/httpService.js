@@ -1,6 +1,5 @@
 import axios from "axios";
-import { get } from "lodash";
-import { getSessionToken, destroy } from "./sessionService";
+import { getSessionToken } from "./sessionService";
 
 const URL = "http://localhost:5000";
 
