@@ -12,7 +12,7 @@ import { Modal } from "../components/UI/Modal";
 import { getErrorMessage } from "../shared/helpers";
 import { Sorter } from "../components/UI/Sorter";
 
-const Home = ({ asPath, pathname }) => {
+const Home = ({ asPath }) => {
   const { loadGames, list: gameList, removeGame, loading } = useContext(
     BgContext
   );
