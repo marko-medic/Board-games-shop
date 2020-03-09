@@ -9,7 +9,7 @@ const _findGame = async id => {
     }
     return game;
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 };
 
@@ -17,11 +17,12 @@ const getAll = async (req, res, next) => {
   try {
     const query = {};
     const searchTerm = req.query.search;
+    const sortBy = req.query.sortBy;
 
     if (searchTerm) {
       query.name = new RegExp(searchTerm, "i");
     }
-    const results = await GameModel.find(query);
+    const results = await GameModel.find(query).sort(sortBy);
     return res.status(200).json({
       success: true,
       count: results.length,

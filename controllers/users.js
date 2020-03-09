@@ -13,7 +13,7 @@ const _findUser = async email => {
     }
     return user;
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 };
 

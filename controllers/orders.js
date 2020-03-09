@@ -13,7 +13,7 @@ const _findUser = async id => {
     }
     return user;
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 };
 
@@ -21,11 +21,13 @@ const getAll = async (req, res, next) => {
   try {
     const query = {};
     const searchTerm = req.query.search;
+    const sortBy = req.query.sortBy;
 
     if (searchTerm) {
       query["userInfo.username"] = new RegExp(searchTerm, "i");
     }
-    const results = await OrderModel.find(query);
+
+    const results = await OrderModel.find(query).sort(sortBy);
     return res.status(200).json({
       success: true,
       count: results.length,
@@ -43,6 +45,7 @@ const getUserOrders = async (req, res, next) => {
   const id = req.params.userId;
   const query = {};
   const searchTerm = req.query.search;
+  const sortBy = req.query.sortBy;
 
   if (searchTerm) {
     query["orderedGames.name"] = new RegExp(searchTerm, "i");
@@ -55,7 +58,9 @@ const getUserOrders = async (req, res, next) => {
     const user = await _findUser(id);
     query["userInfo.userId"] = user._id;
 
-    const orderedUserGames = await OrderModel.find(query);
+    const orderedUserGames = await OrderModel.find(query).sort(sortBy);
+    console.log(orderedUserGames);
+
     return res.status(200).json({
       success: true,
       data: orderedUserGames,

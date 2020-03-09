@@ -1,10 +1,14 @@
 const express = require("express");
-const { checkToken, checkUserAuth } = require("../middleware/auth");
+const {
+  checkToken,
+  checkUserAuth,
+  checkAdminAuth
+} = require("../middleware/auth");
 const orderController = require("../controllers/orders");
 
 const router = express.Router();
 
-router.route("/").get(orderController.getAll);
+router.route("/").get(checkToken, checkAdminAuth, orderController.getAll);
 
 /* 
 @param example: {
