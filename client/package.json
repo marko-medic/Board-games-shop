@@ -10,7 +10,7 @@
   "dependencies": {
     "animate.css": "^3.7.2",
     "axios": "^0.19.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "materialize": "^1.0.0",
     "materialize-css": "^1.0.0-rc.2",
     "next": "9.2.2",
